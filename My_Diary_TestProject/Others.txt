@@ -1,0 +1,77 @@
+*** Settings ***
+Suite Setup       onlyOpenApplication
+Suite Teardown    suiteTearDown
+Resource          keywords/keyword.robot
+Library           AppiumLibrary
+Library           Process
+
+*** Test Cases ***
+changeUserName
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.LinearLayout[@resource-id="com.kiminonawa.mydiary:id/LL_main_profile"]
+    Wait Until Page Contains    確定
+    Input text    //android.widget.EditText[@text="你的名字是"]    User9527
+    Click Element    //android.widget.Button[@text="確定"]
+    Wait Until Keyword Succeeds    15s    1s    Page Should Contain Text    User9527
+
+checkInfo
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting"]
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting_about"]
+    Wait Until Page Contains    關於
+    Page Should Contain Text    This project release by MIT License:
+    Press Keycode    4
+
+setAndRemoveApplicationLock
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting"]
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting_setting_security"]
+    Wait Until Page Contains    輸入新密碼來設定安全鎖
+    Click Element    //android.widget.Button[@text="1"]
+    Click Element    //android.widget.Button[@text="3"]
+    Click Element    //android.widget.Button[@text="2"]
+    Click Element    //android.widget.Button[@text="1"]
+    Wait Until Page Contains    請再輸入一次密碼
+    Click Element    //android.widget.Button[@text="1"]
+    Click Element    //android.widget.Button[@text="3"]
+    Click Element    //android.widget.Button[@text="2"]
+    Click Element    //android.widget.Button[@text="1"]
+    Wait Until Page Contains Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting"]
+    Press Keycode    187
+    Wait Until Page Contains    關閉全部
+    Click Element    //android.widget.Button[@text="關閉全部"]
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.TextView[@text="Apps"]
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.TextView[@text="MyDiary"]
+    Wait Until Page Contains    請輸入密碼
+    Click Element    //android.widget.Button[@text="1"]
+    Click Element    //android.widget.Button[@text="3"]
+    Click Element    //android.widget.Button[@text="2"]
+    Click Element    //android.widget.Button[@text="1"]
+    Wait Until Page Contains    更新情報
+    Click Element    //android.widget.Button[@text="確定"]
+    Wait Until Keyword Succeeds    15s    1s    Page Should Contain Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting"]
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting"]
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting_setting_security"]
+    Wait Until Page Contains    輸入密碼來移除安全鎖
+    Click Element    //android.widget.Button[@text="1"]
+    Click Element    //android.widget.Button[@text="3"]
+    Click Element    //android.widget.Button[@text="2"]
+    Click Element    //android.widget.Button[@text="1"]
+    Press Keycode    187
+    Wait Until Page Contains    關閉全部
+    Click Element    //android.widget.Button[@text="關閉全部"]
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.TextView[@text="Apps"]
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.TextView[@text="MyDiary"]
+    Wait Until Page Contains    更新情報
+    Click Element    //android.widget.Button[@text="確定"]
+    Wait Until Keyword Succeeds    15s    1s    Page Should Contain Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting"]
+
+changeLanguageToEnglish
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting"]
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.ImageView[@resource-id="com.kiminonawa.mydiary:id/IV_main_setting_setting_page"]
+    Wait Until Page Contains    風格
+    Click Element    //android.widget.Spinner[@resource-id="com.kiminonawa.mydiary:id/SP_setting_language"]
+    Wait Until Page Contains    系統
+    Click Element    //android.widget.CheckedTextView[@text="English(100%)"]
+    Wait Until Page Contains    Release note
+    Click Element    //android.widget.Button[@text="Ok"]
+    Wait Until Keyword Succeeds    15s    1s    Click Element    //android.widget.LinearLayout[@resource-id="com.kiminonawa.mydiary:id/LL_main_profile"]
+    Wait Until Keyword Succeeds    15s    1s    Page Should Contain Text    Cancel
+    Press Keycode    4
